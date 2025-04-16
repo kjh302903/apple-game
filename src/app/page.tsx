@@ -8,7 +8,7 @@ const GameBoard = dynamic(() => import("./_component/GameBoard"), {
 
 export default function Home() {
   return (
-    <main>
+    <main className="flex items-center justify-center">
       <GameBoard />
     </main>
   );
