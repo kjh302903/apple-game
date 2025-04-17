@@ -1,3 +1,4 @@
+import useCursorPointer from "@/hooks/useCursorPointer";
 import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import { Group, Image, Text } from "react-konva";
@@ -11,27 +12,11 @@ interface Props {
 const StartButton = ({ x, y }: Props) => {
   const [image] = useImage("/images/apple.png");
   const setStart = useStartStore((state) => state.setStart);
-
-  const handleMouseOver = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const stageContainer = e.target.getStage()?.container();
-    if (stageContainer) {
-      stageContainer.style.cursor = "pointer";
-    }
-  };
-
-  const handleMouseOut = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const stageContainer = e.target.getStage()?.container();
-    if (stageContainer) {
-      stageContainer.style.cursor = "default";
-    }
-  };
+  const { pointerCursor, resetCursor } = useCursorPointer();
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const stageContainer = e.target.getStage()?.container();
-    if (stageContainer) {
-      stageContainer.style.cursor = "default";
-    }
-    setStart();
+    resetCursor(e);
+    setStart(true);
   };
 
   return image ? (
@@ -39,8 +24,8 @@ const StartButton = ({ x, y }: Props) => {
       x={x}
       y={y}
       onClick={handleOnClick}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
+      onMouseOver={pointerCursor}
+      onMouseOut={resetCursor}
     >
       <Image image={image} width={160} height={160} alt="시작 버튼" />
       <Text

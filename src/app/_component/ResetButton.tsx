@@ -1,11 +1,27 @@
-import useCursorPointer from "@/hooks/useCursorPointer";
 import React from "react";
 import { Group, Rect, Text } from "react-konva";
+import useCursorPointer from "@/hooks/useCursorPointer";
+import { useStartStore } from "@/store/start";
+import Konva from "konva";
 
 const ResetButton = () => {
   const color = "#f87f2e";
+  const setStart = useStartStore((state) => state.setStart);
+  const { pointerCursor, resetCursor } = useCursorPointer();
+
+  const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    resetCursor(e);
+    setStart(false);
+  };
+
   return (
-    <Group x={50} y={532.5}>
+    <Group
+      x={50}
+      y={532.5}
+      onClick={handleOnClick}
+      onMouseOver={pointerCursor}
+      onMouseOut={resetCursor}
+    >
       <Rect
         width={60}
         height={25}
