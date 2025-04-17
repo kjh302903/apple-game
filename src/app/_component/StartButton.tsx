@@ -1,3 +1,4 @@
+import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import { Group, Image, Text } from "react-konva";
 import useImage from "use-image";
@@ -5,11 +6,11 @@ import useImage from "use-image";
 interface Props {
   x: number;
   y: number;
-  onClick: () => void;
 }
 
-const StartButton = ({ x, y, onClick }: Props) => {
+const StartButton = ({ x, y }: Props) => {
   const [image] = useImage("/images/apple.png");
+  const setStart = useStartStore((state) => state.setStart);
 
   const handleMouseOver = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const stageContainer = e.target.getStage()?.container();
@@ -30,7 +31,7 @@ const StartButton = ({ x, y, onClick }: Props) => {
     if (stageContainer) {
       stageContainer.style.cursor = "default";
     }
-    onClick();
+    setStart();
   };
 
   return image ? (
