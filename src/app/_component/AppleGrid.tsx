@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { Layer } from "react-konva";
-import { generateGridApples } from "../utils/generateGridApples";
+import { generateGridApples } from "@/utils/generateGridApples";
 import Apple from "./Apple";
 
 const APPLE_SIZE = 40;
