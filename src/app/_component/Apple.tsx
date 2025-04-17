@@ -12,7 +12,14 @@ const Apple = ({ x, y, value }: Props) => {
   const [image] = useImage("/images/apple.png");
   return image ? (
     <Group x={x} y={y}>
-      <Image image={image} x={0} y={0} width={40} height={40} />
+      <Image
+        image={image}
+        x={0}
+        y={0}
+        width={40}
+        height={40}
+        alt="사과 이미지"
+      />
       <Text
         text={value.toString()}
         fontSize={20}
