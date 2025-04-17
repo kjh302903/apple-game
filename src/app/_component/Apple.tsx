@@ -1,16 +1,32 @@
 import React from "react";
-import { Image } from "react-konva";
+import { Group, Image, Text } from "react-konva";
 import useImage from "use-image";
 
 interface Props {
   x: number;
   y: number;
+  value: number;
 }
 
-const Apple = ({ x, y }: Props) => {
+const Apple = ({ x, y, value }: Props) => {
   const [image] = useImage("/images/apple.png");
   return image ? (
-    <Image image={image} x={x} y={y} width={40} height={40} />
+    <Group x={x} y={y}>
+      <Image image={image} x={0} y={0} width={40} height={40} />
+      <Text
+        text={value.toString()}
+        fontSize={20}
+        x={0}
+        y={0}
+        width={40}
+        height={40}
+        align="center"
+        verticalAlign="middle"
+        offsetX={-0.5}
+        offsetY={-5}
+        fill="#fefefe"
+      />
+    </Group>
   ) : null;
 };
 
