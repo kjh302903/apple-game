@@ -14,7 +14,7 @@ const BackGroundLayer = ({ width, height }: Props) => {
         y={0}
         width={width}
         height={height}
-        fill="#fff"
+        fill="#f9e79f"
         cornerRadius={20}
       />
     </Layer>

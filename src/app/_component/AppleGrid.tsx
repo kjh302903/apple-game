@@ -20,7 +20,7 @@ const AppleGrid = () => {
   return (
     <Layer>
       {apples.map((apple) => (
-        <Apple key={apple.id} x={apple.x} y={apple.y} />
+        <Apple key={apple.id} x={apple.x} y={apple.y} value={apple.value} />
       ))}
     </Layer>
   );
