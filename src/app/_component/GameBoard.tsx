@@ -7,8 +7,8 @@ import AppleGrid from "./AppleGrid";
 import { useStartStore } from "@/store/start";
 import IntroLayer from "./IntroLayer";
 
-const BOARD_WIDTH = 800;
-const BOARD_HEIGHT = 485;
+const BOARD_WIDTH = 880;
+const BOARD_HEIGHT = 565;
 const GameBoard = () => {
   const isStart = useStartStore((state) => state.isStart);
 

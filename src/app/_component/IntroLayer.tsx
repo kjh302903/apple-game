@@ -9,13 +9,14 @@ const IntroLayer = () => {
         text="Apple Game"
         align="center"
         verticalAlign="middle"
-        x={240}
+        x={285}
+        y={10}
         width={320}
         height={160}
         fontSize={46}
         fill="white"
       />
-      <StartButton x={320} y={200} />
+      <StartButton x={360} y={200} />
     </Layer>
   );
 };

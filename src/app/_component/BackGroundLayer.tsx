@@ -17,6 +17,13 @@ const BackGroundLayer = ({ width, height }: Props) => {
         fill="#f9e79f"
         cornerRadius={20}
       />
+      <Rect
+        x={40}
+        y={40}
+        width={width - 80}
+        height={height - 80}
+        fill="#fdf7b6"
+      />
     </Layer>
   );
 };

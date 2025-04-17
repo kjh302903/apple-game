@@ -9,7 +9,7 @@ const APPLE_SIZE = 40;
 const COLS = 17;
 const ROWS = 10;
 const APPLE_COUNT = COLS * ROWS;
-const OFF_SET = 20;
+const OFF_SET = 60;
 
 const AppleGrid = () => {
   const apples = useMemo(
