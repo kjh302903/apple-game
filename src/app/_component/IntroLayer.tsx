@@ -14,7 +14,7 @@ const IntroLayer = () => {
         width={320}
         height={160}
         fontSize={46}
-        fill="white"
+        fill="#f87f2e"
       />
       <StartButton x={360} y={200} />
     </Layer>
