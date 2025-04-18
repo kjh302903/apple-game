@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { Layer } from "react-konva";
 import { generateGridApples } from "@/utils/generateGridApples";
 import Apple from "./Apple";
-import ResetButton from "./ResetButton";
 
 const APPLE_SIZE = 40;
 const COLS = 17;
@@ -18,14 +16,9 @@ const AppleGrid = () => {
       generateGridApples(APPLE_COUNT, COLS, APPLE_SIZE + 5, OFF_SET, OFF_SET),
     []
   );
-  return (
-    <Layer>
-      {apples.map((apple) => (
-        <Apple key={apple.id} x={apple.x} y={apple.y} value={apple.value} />
-      ))}
-      <ResetButton />
-    </Layer>
-  );
+  return apples.map((apple) => (
+    <Apple key={apple.id} x={apple.x} y={apple.y} value={apple.value} />
+  ));
 };
 
 export default AppleGrid;
