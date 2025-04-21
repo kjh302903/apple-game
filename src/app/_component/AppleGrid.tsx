@@ -29,6 +29,7 @@ const AppleGrid = () => {
   const dragStart = useRef<{ x: number; y: number } | null>(null);
   const dragBoxRef = useRef<KonvaRect>(null);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
   const isInside = (
     apple: { x: number; y: number },
@@ -104,7 +105,7 @@ const AppleGrid = () => {
           x={apple.x}
           y={apple.y}
           value={apple.value}
-          selected={selectedIds.includes(apple.id)}
+          selected={selectedIdSet.has(apple.id)}
         />
       ))}
       <Rect
