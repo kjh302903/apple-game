@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { generateGridApples } from "@/utils/generateGridApples";
 import Apple from "./Apple";
 import { Group, Rect } from "react-konva";
@@ -28,16 +28,19 @@ const AppleGrid = () => {
 
   const dragStart = useRef<{ x: number; y: number } | null>(null);
   const dragBoxRef = useRef<KonvaRect>(null);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const isInside = (
     apple: { x: number; y: number },
     selection: { x: number; y: number; width: number; height: number }
   ) => {
+    const centerX = apple.x + APPLE_SIZE / 2;
+    const centerY = apple.y + APPLE_SIZE / 2;
     return (
-      apple.x >= selection.x &&
-      apple.x <= selection.x + selection.width &&
-      apple.y >= selection.y &&
-      apple.y <= selection.y + selection.height
+      centerX >= selection.x &&
+      centerX <= selection.x + selection.width &&
+      centerY >= selection.y &&
+      centerY <= selection.y + selection.height
     );
   };
 
@@ -75,7 +78,13 @@ const AppleGrid = () => {
     const width = Math.abs(pos.x - dragStart.current.x);
     const height = Math.abs(pos.y - dragStart.current.y);
 
-    dragBoxRef.current.setAttrs({ x, y, width, height });
+    const box = { x, y, width, height };
+    dragBoxRef.current.setAttrs(box);
+
+    const selected = apples
+      .filter((apple) => isInside(apple, box))
+      .map((a) => a.id);
+    setSelectedIds(selected);
   };
 
   const handleMouseUp = () => {
@@ -84,14 +93,19 @@ const AppleGrid = () => {
       dragBoxRef.current.visible(false);
       const box = dragBoxRef.current.getClientRect(); // 위치 + 크기 계산
       const selected = apples.filter((apple) => isInside(apple, box));
-      console.log("선택된 사과들:", selected);
     }
   };
 
   return (
     <Group>
       {apples.map((apple) => (
-        <Apple key={apple.id} x={apple.x} y={apple.y} value={apple.value} />
+        <Apple
+          key={apple.id}
+          x={apple.x}
+          y={apple.y}
+          value={apple.value}
+          selected={selectedIds.includes(apple.id)}
+        />
       ))}
       <Rect
         ref={dragBoxRef}

@@ -6,9 +6,13 @@ interface Props {
   x: number;
   y: number;
   value: number;
+  selected: boolean;
 }
 
-const Apple = ({ x, y, value }: Props) => {
+const Apple = React.memo(({ x, y, value, selected }: Props) => {
+  console.log(
+    `🍎 렌더링된 사과: ${value} , xy : ${x}, ${y}| 선택됨: ${selected}`
+  );
   const [image] = useImage("/images/apple.png");
   return image ? (
     <Group x={x} y={y}>
@@ -18,6 +22,8 @@ const Apple = ({ x, y, value }: Props) => {
         y={0}
         width={40}
         height={40}
+        shadowColor={selected ? "dodgerblue" : undefined}
+        shadowBlur={selected ? 10 : 0}
         alt="사과 이미지"
       />
       <Text
@@ -35,6 +41,8 @@ const Apple = ({ x, y, value }: Props) => {
       />
     </Group>
   ) : null;
-};
+});
+
+Apple.displayName = "Apple";
 
 export default Apple;
