@@ -21,10 +21,8 @@ const DRAG_AREA = {
 };
 
 const AppleGrid = () => {
-  const apples = useMemo(
-    () =>
-      generateGridApples(APPLE_COUNT, COLS, APPLE_SIZE + 5, OFF_SET, OFF_SET),
-    []
+  const [apples, setApples] = useState(() =>
+    generateGridApples(APPLE_COUNT, COLS, APPLE_SIZE + 5, OFF_SET, OFF_SET)
   );
 
   const dragStart = useRef<{ x: number; y: number } | null>(null);
@@ -97,6 +95,15 @@ const AppleGrid = () => {
       dragBoxRef.current.visible(false);
       const box = dragBoxRef.current.getClientRect(); // 위치 + 크기 계산
       const selected = apples.filter((apple) => isInside(apple, box));
+      const total = selected.reduce((sum, apple) => sum + apple.value, 0);
+
+      if (total === 10) {
+        // 합이 10이면 제거
+        const selectedIdsToRemove = new Set(selected.map((a) => a.id));
+        setApples((prev) => prev.filter((a) => !selectedIdsToRemove.has(a.id)));
+      }
+
+      setSelectedIds([]);
     }
   };
 
