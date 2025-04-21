@@ -6,6 +6,7 @@ import Apple from "./Apple";
 import { Group, Rect } from "react-konva";
 import { Rect as KonvaRect } from "konva/lib/shapes/Rect";
 import { KonvaEventObject } from "konva/lib/Node";
+import useImage from "use-image";
 
 const APPLE_SIZE = 40;
 const COLS = 17;
@@ -30,6 +31,8 @@ const AppleGrid = () => {
   const dragBoxRef = useRef<KonvaRect>(null);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+
+  const [image] = useImage("/images/apple.png");
 
   const isInside = (
     apple: { x: number; y: number },
@@ -97,6 +100,8 @@ const AppleGrid = () => {
     }
   };
 
+  if (!image) return null;
+
   return (
     <Group>
       {apples.map((apple) => (
@@ -105,6 +110,7 @@ const AppleGrid = () => {
           x={apple.x}
           y={apple.y}
           value={apple.value}
+          image={image}
           selected={selectedIdSet.has(apple.id)}
         />
       ))}
