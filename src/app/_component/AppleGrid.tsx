@@ -8,6 +8,7 @@ import { Rect as KonvaRect } from "konva/lib/shapes/Rect";
 import { KonvaEventObject } from "konva/lib/Node";
 import useImage from "use-image";
 import { isInside } from "@/utils/isInside";
+import { useScoreStore } from "@/store/score";
 
 const APPLE_SIZE = 40;
 const COLS = 17;
@@ -30,6 +31,7 @@ const AppleGrid = () => {
   const dragBoxRef = useRef<KonvaRect>(null);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const addScore = useScoreStore((state) => state.addScore);
 
   const [image] = useImage("/images/apple.png");
 
@@ -90,6 +92,7 @@ const AppleGrid = () => {
         // 합이 10이면 제거
         const selectedIdsToRemove = new Set(selected.map((a) => a.id));
         setApples((prev) => prev.filter((a) => !selectedIdsToRemove.has(a.id)));
+        addScore(selected.length);
       }
 
       setSelectedIds([]);

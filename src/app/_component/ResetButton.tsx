@@ -3,15 +3,18 @@ import { Group, Rect, Text } from "react-konva";
 import useCursorPointer from "@/hooks/useCursorPointer";
 import { useStartStore } from "@/store/start";
 import Konva from "konva";
+import { useScoreStore } from "@/store/score";
 
 const ResetButton = () => {
   const color = "#f87f2e";
   const setStart = useStartStore((state) => state.setStart);
+  const resetScore = useScoreStore((state) => state.resetScore);
   const { pointerCursor, resetCursor } = useCursorPointer();
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     resetCursor(e);
     setStart(false);
+    resetScore();
   };
 
   return (
