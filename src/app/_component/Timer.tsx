@@ -7,13 +7,14 @@ const Timer = () => {
   return (
     <Text
       text={timeLeft.toString()}
-      align="center"
+      align="right"
       verticalAlign="middle"
-      x={800}
+      x={785}
       y={532.5}
       offsetY={-1}
       fontSize={24}
       fill="#f87f2e"
+      width={55}
     />
   );
 };
