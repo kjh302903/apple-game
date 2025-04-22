@@ -7,6 +7,7 @@ import { Group, Rect } from "react-konva";
 import { Rect as KonvaRect } from "konva/lib/shapes/Rect";
 import { KonvaEventObject } from "konva/lib/Node";
 import useImage from "use-image";
+import { isInside } from "@/utils/isInside";
 
 const APPLE_SIZE = 40;
 const COLS = 17;
@@ -31,20 +32,6 @@ const AppleGrid = () => {
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
   const [image] = useImage("/images/apple.png");
-
-  const isInside = (
-    apple: { x: number; y: number },
-    selection: { x: number; y: number; width: number; height: number }
-  ) => {
-    const centerX = apple.x + APPLE_SIZE / 2;
-    const centerY = apple.y + APPLE_SIZE / 2;
-    return (
-      centerX >= selection.x &&
-      centerX <= selection.x + selection.width &&
-      centerY >= selection.y &&
-      centerY <= selection.y + selection.height
-    );
-  };
 
   const handleMouseDown = (e: KonvaEventObject<PointerEvent>) => {
     const pos = e.target.getStage()?.getPointerPosition();
@@ -84,7 +71,7 @@ const AppleGrid = () => {
     dragBoxRef.current.setAttrs(box);
 
     const selected = apples
-      .filter((apple) => isInside(apple, box))
+      .filter((apple) => isInside(apple, box, APPLE_SIZE))
       .map((a) => a.id);
     setSelectedIds(selected);
   };
@@ -94,7 +81,9 @@ const AppleGrid = () => {
     if (dragBoxRef.current) {
       dragBoxRef.current.visible(false);
       const box = dragBoxRef.current.getClientRect(); // 위치 + 크기 계산
-      const selected = apples.filter((apple) => isInside(apple, box));
+      const selected = apples.filter((apple) =>
+        isInside(apple, box, APPLE_SIZE)
+      );
       const total = selected.reduce((sum, apple) => sum + apple.value, 0);
 
       if (total === 10) {
