@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 export const useStartStore = create<{
-  isStart: boolean;
-  setStart: (start: boolean) => void;
+  startState: string;
+  setStart: (state: string) => void;
 }>((set) => ({
-  isStart: false,
-  setStart: (start: boolean) => set(() => ({ isStart: start })),
+  startState: "end",
+  setStart: (state: string) => set(() => ({ startState: state })),
 }));

@@ -16,7 +16,7 @@ const StartButton = ({ x, y }: Props) => {
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     resetCursor(e);
-    setStart(true);
+    setStart("start");
   };
 
   return image ? (

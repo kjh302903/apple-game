@@ -1,20 +1,29 @@
 import React from "react";
 import { Group, Rect, Text } from "react-konva";
 import useCursorPointer from "@/hooks/useCursorPointer";
-import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import { useScoreStore } from "@/store/score";
+import { useModalStateStore } from "@/store/modalState";
+import { useAppleStore } from "@/store/apple";
+import { useTimeStore } from "@/store/time";
+import { useStartStore } from "@/store/start";
 
 const ResetButton = () => {
   const color = "#f87f2e";
-  const setStart = useStartStore((state) => state.setStart);
   const resetScore = useScoreStore((state) => state.resetScore);
   const { pointerCursor, resetCursor } = useCursorPointer();
+  const closeModal = useModalStateStore((state) => state.closeModal);
+  const resetApples = useAppleStore((state) => state.resetApples);
+  const resetTime = useTimeStore((state) => state.resetTime);
+  const setStart = useStartStore((state) => state.setStart);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     resetCursor(e);
-    setStart(false);
     resetScore();
+    resetApples();
+    resetTime();
+    setStart("start");
+    closeModal();
   };
 
   return (

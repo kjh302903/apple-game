@@ -10,12 +10,13 @@ import GameLayer from "./GameLayer";
 const BOARD_WIDTH = 880;
 const BOARD_HEIGHT = 565;
 const GameBoard = () => {
-  const isStart = useStartStore((state) => state.isStart);
+  const startState = useStartStore((state) => state.startState);
 
   return (
     <Stage width={BOARD_WIDTH} height={BOARD_HEIGHT}>
       <BackGroundLayer width={BOARD_WIDTH} height={BOARD_HEIGHT} />
-      {isStart ? <GameLayer /> : <IntroLayer />}
+      {(startState === "start" || startState === "pending") && <GameLayer />}
+      {startState === "end" && <IntroLayer />}
     </Stage>
   );
 };

@@ -2,13 +2,13 @@ import { create } from "zustand";
 
 interface TimerState {
   timeLeft: number;
-  reset: () => void;
+  resetTime: () => void;
   decrement: () => void;
 }
 
 export const useTimeStore = create<TimerState>((set) => ({
-  timeLeft: 120,
-  reset: () => set({ timeLeft: 120 }),
+  timeLeft: 10,
+  resetTime: () => set({ timeLeft: 10 }),
   decrement: () =>
     set((state) => ({
       timeLeft: state.timeLeft - 1,
