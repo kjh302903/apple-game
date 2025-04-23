@@ -5,12 +5,13 @@ interface Props {
   x: number;
   y: number;
   value: number;
+  version: number;
   image: HTMLImageElement | undefined;
   selected: boolean;
 }
 
 const Apple = React.memo(
-  ({ x, y, value, image, selected }: Props) => {
+  ({ x, y, value, version, image, selected }: Props) => {
     return image ? (
       <Group x={x} y={y}>
         <Image
@@ -39,7 +40,8 @@ const Apple = React.memo(
       </Group>
     ) : null;
   },
-  (prev, next) => prev.selected === next.selected
+  (prev, next) =>
+    prev.selected === next.selected && prev.version === next.version
 );
 
 Apple.displayName = "Apple";

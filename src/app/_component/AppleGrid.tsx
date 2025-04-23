@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo, useRef, useState } from "react";
-import { generateGridApples } from "@/utils/generateGridApples";
 import Apple from "./Apple";
 import { Group, Rect } from "react-konva";
 import { Rect as KonvaRect } from "konva/lib/shapes/Rect";
@@ -9,12 +8,9 @@ import { KonvaEventObject } from "konva/lib/Node";
 import useImage from "use-image";
 import { isInside } from "@/utils/isInside";
 import { useScoreStore } from "@/store/score";
+import { useAppleStore } from "@/store/apple";
 
 const APPLE_SIZE = 40;
-const COLS = 17;
-const ROWS = 10;
-const APPLE_COUNT = COLS * ROWS;
-const OFF_SET = 60;
 const DRAG_AREA = {
   x: 40,
   y: 40,
@@ -23,9 +19,9 @@ const DRAG_AREA = {
 };
 
 const AppleGrid = () => {
-  const [apples, setApples] = useState(() =>
-    generateGridApples(APPLE_COUNT, COLS, APPLE_SIZE + 5, OFF_SET, OFF_SET)
-  );
+  const apples = useAppleStore((state) => state.apples);
+  const version = useAppleStore((state) => state.version);
+  const removeApplesById = useAppleStore((state) => state.removeApplesById);
 
   const dragStart = useRef<{ x: number; y: number } | null>(null);
   const dragBoxRef = useRef<KonvaRect>(null);
@@ -91,7 +87,7 @@ const AppleGrid = () => {
       if (total === 10) {
         // 합이 10이면 제거
         const selectedIdsToRemove = new Set(selected.map((a) => a.id));
-        setApples((prev) => prev.filter((a) => !selectedIdsToRemove.has(a.id)));
+        removeApplesById(selectedIdsToRemove);
         addScore(selected.length);
       }
 
@@ -106,6 +102,7 @@ const AppleGrid = () => {
       {apples.map((apple) => (
         <Apple
           key={apple.id}
+          version={version}
           x={apple.x}
           y={apple.y}
           value={apple.value}
