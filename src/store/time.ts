@@ -7,8 +7,8 @@ interface TimerState {
 }
 
 export const useTimeStore = create<TimerState>((set) => ({
-  timeLeft: 10,
-  resetTime: () => set({ timeLeft: 10 }),
+  timeLeft: 120,
+  resetTime: () => set({ timeLeft: 120 }),
   decrement: () =>
     set((state) => ({
       timeLeft: state.timeLeft - 1,
