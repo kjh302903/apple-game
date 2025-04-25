@@ -5,11 +5,10 @@ import { useScoreStore } from "@/store/score";
 import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import React from "react";
-import StrokeButton from "./common/StrokeButton";
+import { Group, Rect, Text } from "react-konva";
 
-const HomeButton = () => {
-  const color = "#f87f2e";
-  const { resetCursor } = useCursorPointer();
+const EndButton = () => {
+  const { pointerCursor, resetCursor } = useCursorPointer();
   const setStart = useStartStore((state) => state.setStart);
   const resetScore = useScoreStore((state) => state.resetScore);
   const closeModal = useModalStateStore((state) => state.closeModal);
@@ -23,18 +22,34 @@ const HomeButton = () => {
     closeModal();
   };
   return (
-    <StrokeButton
-      x={125}
-      y={532.5}
-      width={60}
-      height={25}
-      color={color} // 테두리 색 (더 연한 노랑)
-      strokeWidth={2.5}
-      offsetY={-1}
-      text={"HOME"}
+    <Group
+      onMouseOver={pointerCursor}
+      onMouseOut={resetCursor}
       onClick={handleOnClick}
-    />
+    >
+      <Rect
+        x={290}
+        y={310}
+        width={220}
+        height={50}
+        offsetX={-5}
+        fill="#f7d774"
+      />
+      <Text
+        text={"게임 종료"}
+        fontSize={24}
+        x={290}
+        y={310}
+        width={220}
+        height={50}
+        align="center"
+        verticalAlign="middle"
+        offsetX={-7}
+        offsetY={-2}
+        fill="#fefefe"
+      />
+    </Group>
   );
 };
 
-export default HomeButton;
+export default EndButton;

@@ -1,8 +1,8 @@
 import React from "react";
 import { Group, Image, Rect, Text } from "react-konva";
 import useImage from "use-image";
-import HomeButton from "./HomeButton";
 import { useScoreStore } from "@/store/score";
+import EndButton from "./EndButton";
 
 const ResultModal = () => {
   const [image] = useImage("/images/apple.png");
@@ -45,7 +45,7 @@ const ResultModal = () => {
         offsetY={-5}
         fill="#fefefe"
       />
-      <HomeButton />
+      <EndButton />
     </Group>
   );
 };

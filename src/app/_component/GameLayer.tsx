@@ -6,6 +6,7 @@ import Timer from "./Timer";
 import Score from "./Score";
 import ResultModal from "./ResultModal";
 import { useModalStateStore } from "@/store/modalState";
+import HomeButton from "./HomeButton";
 
 const GameLayer = () => {
   const isOpen = useModalStateStore((state) => state.isOpen);
@@ -14,6 +15,7 @@ const GameLayer = () => {
       <AppleGrid />
       <Score />
       <ResetButton />
+      <HomeButton />
       <Timer />
       {isOpen && <ResultModal />}
     </Layer>
