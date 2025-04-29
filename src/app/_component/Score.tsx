@@ -1,9 +1,28 @@
+import { useBGMStore } from "@/store/bgm";
+import { useModalStateStore } from "@/store/modalState";
 import { useScoreStore } from "@/store/score";
-import React from "react";
+import { useStartStore } from "@/store/start";
+import React, { useEffect } from "react";
 import { Group, Text } from "react-konva";
 
 const Score = () => {
   const score = useScoreStore((state) => state.score);
+  const openModal = useModalStateStore((state) => state.openModal);
+  const setStart = useStartStore((state) => state.setStart);
+  const stop = useBGMStore((state) => state.stop);
+
+  useEffect(() => {
+    if (score === 170) {
+      const completeSound = new Audio("/sounds/game-complete.mp3");
+
+      completeSound.currentTime = 0;
+      completeSound.play();
+      openModal();
+      setStart("pending");
+      stop();
+    }
+  }, [score]);
+
   return (
     <Group>
       <Text
