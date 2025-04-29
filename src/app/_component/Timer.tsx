@@ -14,6 +14,10 @@ const Timer = () => {
 
   useEffect(() => {
     if (timeLeft === 0) {
+      const overSound = new Audio("/sounds/game-over.mp3");
+
+      overSound.currentTime = 0;
+      overSound.play();
       openModal();
       setStart("pending");
     }
