@@ -8,14 +8,14 @@ import { KonvaEventObject } from "konva/lib/Node";
 import useImage from "use-image";
 import { isInside } from "@/utils/isInside";
 import { useScoreStore } from "@/store/score";
-import { useAppleStore } from "@/store/apple";
+import { APPLE_SIZE, useAppleStore } from "@/store/apple";
+import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
 
-const APPLE_SIZE = 32;
 const DRAG_AREA = {
-  x: 40,
-  y: 40,
-  width: 660,
-  height: 405,
+  x: BOARD_MARGIN,
+  y: BOARD_MARGIN,
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
 };
 
 const AppleGrid = () => {

@@ -3,15 +3,16 @@ import { Group, Image, Rect, Text } from "react-konva";
 import useImage from "use-image";
 import { useScoreStore } from "@/store/score";
 import EndButton from "./EndButton";
+import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
 
 const ResultModal = () => {
   const [image] = useImage("/images/apple.png");
   const score = useScoreStore((state) => state.score);
 
   return (
-    <Group x={40} y={40}>
+    <Group x={BOARD_MARGIN} y={BOARD_MARGIN}>
       {/* 배경 투명 레이어 */}
-      <Rect width={660} height={405} />
+      <Rect width={GAME_WIDTH} height={GAME_HEIGHT} />
       <Image
         image={image}
         x={200}

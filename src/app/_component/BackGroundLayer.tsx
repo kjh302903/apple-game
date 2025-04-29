@@ -1,3 +1,4 @@
+import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
 import React from "react";
 import { Layer, Rect } from "react-konva";
 
@@ -18,10 +19,10 @@ const BackGroundLayer = ({ width, height }: Props) => {
         cornerRadius={20}
       />
       <Rect
-        x={40}
-        y={40}
-        width={width - 80}
-        height={height - 80}
+        x={BOARD_MARGIN}
+        y={BOARD_MARGIN}
+        width={GAME_WIDTH}
+        height={GAME_HEIGHT}
         fill="#fdf7b6"
       />
     </Layer>

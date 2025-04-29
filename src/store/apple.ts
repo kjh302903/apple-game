@@ -2,13 +2,15 @@
 import { create } from "zustand";
 import { generateGridApples } from "@/utils/generateGridApples";
 import { Apple } from "@/types/apple";
+import { BOARD_HEIGHT, BOARD_WIDTH } from "@/constants/board";
 
-const APPLE_SIZE = 32;
+export const APPLE_SIZE = 32;
 const COLS = 17;
 const ROWS = 10;
 const APPLE_COUNT = COLS * ROWS;
-const OFFSETX = 74;
-const OFFSETY = 69;
+const GAP = 3;
+const OFFSETX = (BOARD_WIDTH - (APPLE_SIZE * COLS + GAP * 16)) / 2;
+const OFFSETY = (BOARD_HEIGHT - (APPLE_SIZE * ROWS + GAP * 9)) / 2;
 
 export const useAppleStore = create<{
   apples: Apple[];
@@ -19,7 +21,7 @@ export const useAppleStore = create<{
   apples: generateGridApples(
     APPLE_COUNT,
     COLS,
-    APPLE_SIZE + 3,
+    APPLE_SIZE + GAP,
     OFFSETX,
     OFFSETY
   ),
@@ -29,7 +31,7 @@ export const useAppleStore = create<{
       apples: generateGridApples(
         APPLE_COUNT,
         COLS,
-        APPLE_SIZE + 3,
+        APPLE_SIZE + GAP,
         OFFSETX,
         OFFSETY
       ),
