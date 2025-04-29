@@ -7,8 +7,8 @@ import { useStartStore } from "@/store/start";
 import IntroLayer from "./IntroLayer";
 import GameLayer from "./GameLayer";
 
-const BOARD_WIDTH = 880;
-const BOARD_HEIGHT = 565;
+const BOARD_WIDTH = 740;
+const BOARD_HEIGHT = 485;
 const GameBoard = () => {
   const startState = useStartStore((state) => state.startState);
 

@@ -4,6 +4,7 @@ import { Group, Image, Text } from "react-konva";
 interface Props {
   x: number;
   y: number;
+  size: number;
   value: number;
   version: number;
   image: HTMLImageElement | undefined;
@@ -11,26 +12,26 @@ interface Props {
 }
 
 const Apple = React.memo(
-  ({ x, y, value, version, image, selected }: Props) => {
+  ({ x, y, size, value, version, image, selected }: Props) => {
     return image ? (
       <Group x={x} y={y}>
         <Image
           image={image}
           x={0}
           y={0}
-          width={40}
-          height={40}
+          width={size}
+          height={size}
           shadowColor={selected ? "dodgerblue" : undefined}
           shadowBlur={selected ? 10 : 0}
           alt="사과 이미지"
         />
         <Text
           text={value.toString()}
-          fontSize={20}
+          fontSize={16}
           x={0}
           y={0}
-          width={40}
-          height={40}
+          width={size}
+          height={size}
           align="center"
           verticalAlign="middle"
           offsetX={-0.5}

@@ -3,11 +3,12 @@ import { create } from "zustand";
 import { generateGridApples } from "@/utils/generateGridApples";
 import { Apple } from "@/types/apple";
 
-const APPLE_SIZE = 40;
+const APPLE_SIZE = 32;
 const COLS = 17;
 const ROWS = 10;
 const APPLE_COUNT = COLS * ROWS;
-const OFFSET = 60;
+const OFFSETX = 74;
+const OFFSETY = 69;
 
 export const useAppleStore = create<{
   apples: Apple[];
@@ -15,16 +16,22 @@ export const useAppleStore = create<{
   resetApples: () => void;
   removeApplesById: (ids: Set<number>) => void;
 }>((set) => ({
-  apples: generateGridApples(APPLE_COUNT, COLS, APPLE_SIZE + 5, OFFSET, OFFSET),
+  apples: generateGridApples(
+    APPLE_COUNT,
+    COLS,
+    APPLE_SIZE + 3,
+    OFFSETX,
+    OFFSETY
+  ),
   version: 0,
   resetApples: () =>
     set((state) => ({
       apples: generateGridApples(
         APPLE_COUNT,
         COLS,
-        APPLE_SIZE + 5,
-        OFFSET,
-        OFFSET
+        APPLE_SIZE + 3,
+        OFFSETX,
+        OFFSETY
       ),
       version: state.version + 1,
     })),

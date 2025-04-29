@@ -28,8 +28,8 @@ const HomeButton = () => {
   };
   return (
     <StrokeButton
-      x={125}
-      y={532.5}
+      x={120}
+      y={452.5}
       width={60}
       height={25}
       color={color} // 테두리 색 (더 연한 노랑)

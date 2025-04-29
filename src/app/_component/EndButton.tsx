@@ -32,23 +32,23 @@ const EndButton = () => {
       onClick={handleOnClick}
     >
       <Rect
-        x={290}
+        x={220}
         y={310}
         width={220}
         height={50}
-        offsetX={-5}
+        offsetX={-3}
         fill="#f7d774"
       />
       <Text
         text={"게임 종료"}
         fontSize={24}
-        x={290}
+        x={220}
         y={310}
         width={220}
         height={50}
         align="center"
         verticalAlign="middle"
-        offsetX={-7}
+        offsetX={-3}
         offsetY={-2}
         fill="#fefefe"
       />

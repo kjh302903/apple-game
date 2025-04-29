@@ -11,22 +11,22 @@ const ResultModal = () => {
   return (
     <Group x={40} y={40}>
       {/* 배경 투명 레이어 */}
-      <Rect width={800} height={485} />
+      <Rect width={660} height={405} />
       <Image
         image={image}
-        x={250}
+        x={200}
         y={0}
-        width={300}
-        height={300}
+        width={260}
+        height={260}
         alt="결과 모달 사과 이미지"
       />
       <Text
         text={"Score"}
         fontSize={44}
-        x={250}
+        x={200}
         y={0}
-        width={300}
-        height={300}
+        width={260}
+        height={260}
         align="center"
         verticalAlign="middle"
         offsetX={-5}
@@ -35,13 +35,13 @@ const ResultModal = () => {
       <Text
         text={score.toString()}
         fontSize={48}
-        x={250}
+        x={200}
         y={50}
-        width={300}
-        height={300}
+        width={260}
+        height={260}
         align="center"
         verticalAlign="middle"
-        offsetX={-5}
+        offsetX={-3}
         offsetY={-5}
         fill="#fefefe"
       />

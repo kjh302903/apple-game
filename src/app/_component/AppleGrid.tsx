@@ -10,12 +10,12 @@ import { isInside } from "@/utils/isInside";
 import { useScoreStore } from "@/store/score";
 import { useAppleStore } from "@/store/apple";
 
-const APPLE_SIZE = 40;
+const APPLE_SIZE = 32;
 const DRAG_AREA = {
   x: 40,
   y: 40,
-  width: 800,
-  height: 485,
+  width: 660,
+  height: 405,
 };
 
 const AppleGrid = () => {
@@ -109,6 +109,7 @@ const AppleGrid = () => {
           version={version}
           x={apple.x}
           y={apple.y}
+          size={APPLE_SIZE}
           value={apple.value}
           image={image}
           selected={selectedIdSet.has(apple.id)}

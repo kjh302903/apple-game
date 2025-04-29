@@ -19,6 +19,7 @@ const ResetButton = () => {
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const clickSound = new Audio("/sounds/click.mp3");
+
     clickSound.currentTime = 0;
     clickSound.play();
     resetCursor(e);
@@ -31,8 +32,8 @@ const ResetButton = () => {
 
   return (
     <StrokeButton
-      x={50}
-      y={532.5}
+      x={45}
+      y={452.5}
       width={60}
       height={25}
       color={color} // 테두리 색 (더 연한 노랑)

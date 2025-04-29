@@ -10,7 +10,7 @@ const Score = () => {
         text={`Score : `}
         align="center"
         verticalAlign="middle"
-        x={720}
+        x={580}
         y={10}
         offsetY={-1}
         fontSize={24}
@@ -20,7 +20,7 @@ const Score = () => {
         text={score.toString()}
         align="right"
         verticalAlign="middle"
-        x={785}
+        x={645}
         y={10}
         offsetY={-2}
         fontSize={24}
