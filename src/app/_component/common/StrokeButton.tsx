@@ -49,6 +49,7 @@ const StrokeButton = ({
         verticalAlign="middle"
         width={width}
         height={height}
+        offsetX={offsetX}
         offsetY={offsetY}
         fill={color}
       />
