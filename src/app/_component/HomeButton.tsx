@@ -6,6 +6,7 @@ import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import React from "react";
 import StrokeButton from "./common/StrokeButton";
+import { useBGMStore } from "@/store/bgm";
 
 const HomeButton = () => {
   const color = "#f87f2e";
@@ -14,6 +15,7 @@ const HomeButton = () => {
   const resetScore = useScoreStore((state) => state.resetScore);
   const closeModal = useModalStateStore((state) => state.closeModal);
   const resetApples = useAppleStore((state) => state.resetApples);
+  const stop = useBGMStore((state) => state.stop);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const clickSound = new Audio("/sounds/click.mp3");
@@ -25,10 +27,12 @@ const HomeButton = () => {
     resetScore();
     resetApples();
     closeModal();
+
+    stop();
   };
   return (
     <StrokeButton
-      x={120}
+      x={115}
       y={452.5}
       width={60}
       height={25}

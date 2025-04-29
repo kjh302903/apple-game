@@ -1,4 +1,5 @@
 import useCursorPointer from "@/hooks/useCursorPointer";
+import { useBGMStore } from "@/store/bgm";
 import { useStartStore } from "@/store/start";
 import Konva from "konva";
 import { Group, Image, Text } from "react-konva";
@@ -14,6 +15,8 @@ const StartButton = ({ x, y }: Props) => {
   const setStart = useStartStore((state) => state.setStart);
   const { pointerCursor, resetCursor } = useCursorPointer();
 
+  const play = useBGMStore((state) => state.play);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const clickSound = new Audio("/sounds/click.mp3");
 
@@ -21,6 +24,7 @@ const StartButton = ({ x, y }: Props) => {
     clickSound.play();
     resetCursor(e);
     setStart("start");
+    play();
   };
 
   return image ? (

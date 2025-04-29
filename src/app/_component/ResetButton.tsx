@@ -7,6 +7,7 @@ import { useAppleStore } from "@/store/apple";
 import { useTimeStore } from "@/store/time";
 import { useStartStore } from "@/store/start";
 import StrokeButton from "./common/StrokeButton";
+import { useBGMStore } from "@/store/bgm";
 
 const ResetButton = () => {
   const color = "#f87f2e";
@@ -16,6 +17,8 @@ const ResetButton = () => {
   const resetApples = useAppleStore((state) => state.resetApples);
   const resetTime = useTimeStore((state) => state.resetTime);
   const setStart = useStartStore((state) => state.setStart);
+
+  const reset = useBGMStore((state) => state.reset);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const clickSound = new Audio("/sounds/click.mp3");
@@ -28,6 +31,8 @@ const ResetButton = () => {
     resetTime();
     setStart("start");
     closeModal();
+
+    reset();
   };
 
   return (
