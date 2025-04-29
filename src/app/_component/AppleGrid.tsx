@@ -86,6 +86,10 @@ const AppleGrid = () => {
 
       if (total === 10) {
         // 합이 10이면 제거
+        const popSound = new Audio("/sounds/pop.mp3");
+
+        popSound.currentTime = 0;
+        popSound.play();
         const selectedIdsToRemove = new Set(selected.map((a) => a.id));
         removeApplesById(selectedIdsToRemove);
         addScore(selected.length);
