@@ -15,6 +15,10 @@ const EndButton = () => {
   const resetApples = useAppleStore((state) => state.resetApples);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    const clickSound = new Audio("/sounds/click.mp3");
+
+    clickSound.currentTime = 0;
+    clickSound.play();
     resetCursor(e);
     setStart("end");
     resetScore();

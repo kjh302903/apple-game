@@ -18,6 +18,9 @@ const ResetButton = () => {
   const setStart = useStartStore((state) => state.setStart);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    const clickSound = new Audio("/sounds/click.mp3");
+    clickSound.currentTime = 0;
+    clickSound.play();
     resetCursor(e);
     resetScore();
     resetApples();

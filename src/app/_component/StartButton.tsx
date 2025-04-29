@@ -15,6 +15,10 @@ const StartButton = ({ x, y }: Props) => {
   const { pointerCursor, resetCursor } = useCursorPointer();
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    const clickSound = new Audio("/sounds/click.mp3");
+
+    clickSound.currentTime = 0;
+    clickSound.play();
     resetCursor(e);
     setStart("start");
   };
