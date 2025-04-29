@@ -2,12 +2,15 @@ import useGameTimer from "@/hooks/useGameTimer";
 import { useModalStateStore } from "@/store/modalState";
 import { useStartStore } from "@/store/start";
 import React, { useEffect } from "react";
-import { Text } from "react-konva";
+import { Group, Rect } from "react-konva";
 
 const Timer = () => {
   const timeLeft = useGameTimer();
   const openModal = useModalStateStore((state) => state.openModal);
   const setStart = useStartStore((state) => state.setStart);
+
+  const totalHeight = 360;
+  const totalTime = 120;
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -15,18 +18,31 @@ const Timer = () => {
       setStart("pending");
     }
   }, [timeLeft, openModal]);
+
+  const gaugeHeight = (timeLeft / totalTime) * totalHeight;
+  const baseY = 62.5;
+  const adjustedY = baseY + (totalHeight - gaugeHeight);
+
   return (
-    <Text
-      text={timeLeft.toString()}
-      align="right"
-      verticalAlign="middle"
-      x={785}
-      y={532.5}
-      offsetY={-1}
-      fontSize={24}
-      fill="#f87f2e"
-      width={55}
-    />
+    <Group>
+      <Rect
+        x={715}
+        y={baseY}
+        width={10}
+        height={totalHeight}
+        stroke="#f87f2e"
+        strokeWidth={2}
+        cornerRadius={3}
+      />
+      <Rect
+        x={715}
+        y={adjustedY}
+        width={10}
+        height={gaugeHeight}
+        fill="#f87f2e"
+        cornerRadius={3}
+      />
+    </Group>
   );
 };
 
