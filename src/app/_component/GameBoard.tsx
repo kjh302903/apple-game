@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Stage } from "react-konva";
 import BackGroundLayer from "./BackGroundLayer";
 import { useStartStore } from "@/store/start";
 import IntroLayer from "./IntroLayer";
 import GameLayer from "./GameLayer";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "@/constants/board";
-import { useEffectiveSoundStore } from "@/store/effectiveSound";
 
 const GameBoard = () => {
   const startState = useStartStore((state) => state.startState);
-  const preload = useEffectiveSoundStore((state) => state.preload);
-
-  useEffect(() => {
-    preload();
-  }, []);
 
   return (
     <Stage width={BOARD_WIDTH} height={BOARD_HEIGHT}>

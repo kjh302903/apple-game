@@ -4,13 +4,17 @@ type SoundKey = "click" | "pop" | "gameover" | "gamecomplete";
 
 export const useEffectiveSoundStore = create<{
   isSoundOn: boolean;
-  sounds: Partial<Record<SoundKey, HTMLAudioElement>>;
+  sounds: Record<SoundKey, HTMLAudioElement>;
   setSound: () => void;
-  play: (key: string) => void;
-  preload: () => void;
+  play: (key: SoundKey) => void;
 }>((set, get) => ({
   isSoundOn: true,
-  sounds: {},
+  sounds: {
+    click: new Audio("/sounds/click.mp3"),
+    pop: new Audio("/sounds/pop.mp3"),
+    gameover: new Audio("/sounds/game-over.mp3"),
+    gamecomplete: new Audio("/sounds/game-complete.mp3"),
+  },
   setSound: () =>
     set((state) => ({
       isSoundOn: !state.isSoundOn,
@@ -25,14 +29,5 @@ export const useEffectiveSoundStore = create<{
       sound.currentTime = 0;
       sound.play();
     }
-  },
-  preload: () => {
-    const loadedSounds: Partial<Record<SoundKey, HTMLAudioElement>> = {
-      click: new Audio("/sounds/click.mp3"),
-      pop: new Audio("/sounds/pop.mp3"),
-      gameover: new Audio("/sounds/game-over.mp3"),
-      gamecomplete: new Audio("/sounds/game-complete.mp3"),
-    };
-    set({ sounds: loadedSounds });
   },
 }));
