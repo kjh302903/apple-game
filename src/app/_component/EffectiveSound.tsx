@@ -11,10 +11,10 @@ const EffectiveSound = () => {
   const { pointerCursor, resetCursor } = useCursorPointer();
   const isSoundOn = useEffectiveSoundStore((state) => state.isSoundOn);
   const setSound = useEffectiveSoundStore((state) => state.setSound);
-  const playClick = useEffectiveSoundStore((state) => state.playClick);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   const handleOnClick = () => {
-    playClick();
+    play("click");
     setSound();
   };
 

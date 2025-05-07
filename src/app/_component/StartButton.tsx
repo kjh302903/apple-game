@@ -17,9 +17,10 @@ const StartButton = ({ x, y }: Props) => {
   const { pointerCursor, resetCursor } = useCursorPointer();
 
   const play = useBGMStore((state) => state.play);
-  const playClick = useEffectiveSoundStore((state) => state.playClick);
+  const playSound = useEffectiveSoundStore((state) => state.play);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    playClick();
+    playSound("click");
     resetCursor(e);
     setStart("start");
     play();

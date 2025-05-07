@@ -1,4 +1,5 @@
 import { useBGMStore } from "@/store/bgm";
+import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useModalStateStore } from "@/store/modalState";
 import { useScoreStore } from "@/store/score";
 import { useStartStore } from "@/store/start";
@@ -10,13 +11,11 @@ const Score = () => {
   const openModal = useModalStateStore((state) => state.openModal);
   const setStart = useStartStore((state) => state.setStart);
   const stop = useBGMStore((state) => state.stop);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   useEffect(() => {
     if (score === 170) {
-      const completeSound = new Audio("/sounds/game-complete.mp3");
-
-      completeSound.currentTime = 0;
-      completeSound.play();
+      play("gamecomplete");
       openModal();
       setStart("pending");
       stop();

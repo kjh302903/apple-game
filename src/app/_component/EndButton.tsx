@@ -14,9 +14,10 @@ const EndButton = () => {
   const resetScore = useScoreStore((state) => state.resetScore);
   const closeModal = useModalStateStore((state) => state.closeModal);
   const resetApples = useAppleStore((state) => state.resetApples);
-  const playClick = useEffectiveSoundStore((state) => state.playClick);
+  const play = useEffectiveSoundStore((state) => state.play);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    playClick();
+    play("click");
     resetCursor(e);
     setStart("end");
     resetScore();

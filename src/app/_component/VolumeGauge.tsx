@@ -18,7 +18,7 @@ const VolumeGauge = () => {
   const gaugeWidth = 100;
   const isDragging = useRef(false);
   const prevVolumeRef = useRef(1);
-  const playClick = useEffectiveSoundStore((state) => state.playClick);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     updateVolume(e);
@@ -44,7 +44,7 @@ const VolumeGauge = () => {
   };
 
   const handleIconClick = () => {
-    playClick();
+    play("click");
     if (volume > 0) {
       prevVolumeRef.current = volume;
       setVolume(0);

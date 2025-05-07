@@ -20,10 +20,10 @@ const ResetButton = () => {
   const setStart = useStartStore((state) => state.setStart);
 
   const reset = useBGMStore((state) => state.reset);
-  const playClick = useEffectiveSoundStore((state) => state.playClick);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    playClick();
+    play("click");
     resetCursor(e);
     resetScore();
     resetApples();

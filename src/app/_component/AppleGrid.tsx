@@ -29,7 +29,7 @@ const AppleGrid = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const addScore = useScoreStore((state) => state.addScore);
-  const playPop = useEffectiveSoundStore((state) => state.playPop);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   const [image] = useImage("/images/apple.png");
 
@@ -88,7 +88,7 @@ const AppleGrid = () => {
 
       if (total === 10) {
         // 합이 10이면 제거
-        playPop();
+        play("pop");
         const selectedIdsToRemove = new Set(selected.map((a) => a.id));
         removeApplesById(selectedIdsToRemove);
         addScore(selected.length);

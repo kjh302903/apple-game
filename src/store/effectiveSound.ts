@@ -1,40 +1,38 @@
 import { create } from "zustand";
 
+type SoundKey = "click" | "pop" | "gameover" | "gamecomplete";
+
 export const useEffectiveSoundStore = create<{
   isSoundOn: boolean;
-  clickSound: HTMLAudioElement;
-  popSound: HTMLAudioElement;
+  sounds: Partial<Record<SoundKey, HTMLAudioElement>>;
   setSound: () => void;
-  playClick: () => void;
-  playPop: () => void;
-}>((set, get) => {
-  const clickSound = new Audio("/sounds/click.mp3");
-  const popSound = new Audio("/sounds/pop.mp3");
-  return {
-    isSoundOn: true,
-    clickSound,
-    popSound,
-    setSound: () =>
-      set((state) => ({
-        isSoundOn: !state.isSoundOn,
-      })),
-    playClick: () => {
-      const isSoundOn = get().isSoundOn;
+  play: (key: string) => void;
+  preload: () => void;
+}>((set, get) => ({
+  isSoundOn: true,
+  sounds: {},
+  setSound: () =>
+    set((state) => ({
+      isSoundOn: !state.isSoundOn,
+    })),
+  play: (key) => {
+    const { isSoundOn, sounds } = get();
 
-      if (!isSoundOn) return;
+    if (!isSoundOn) return;
 
-      const sound = get().clickSound;
+    const sound = sounds[key];
+    if (sound) {
       sound.currentTime = 0;
       sound.play();
-    },
-    playPop: () => {
-      const isSoundOn = get().isSoundOn;
-
-      if (!isSoundOn) return;
-
-      const sound = get().popSound;
-      sound.currentTime = 0;
-      sound.play();
-    },
-  };
-});
+    }
+  },
+  preload: () => {
+    const loadedSounds: Partial<Record<SoundKey, HTMLAudioElement>> = {
+      click: new Audio("/sounds/click.mp3"),
+      pop: new Audio("/sounds/pop.mp3"),
+      gameover: new Audio("/sounds/game-over.mp3"),
+      gamecomplete: new Audio("/sounds/game-complete.mp3"),
+    };
+    set({ sounds: loadedSounds });
+  },
+}));

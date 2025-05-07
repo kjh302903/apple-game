@@ -1,5 +1,6 @@
 import useGameTimer from "@/hooks/useGameTimer";
 import { useBGMStore } from "@/store/bgm";
+import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useModalStateStore } from "@/store/modalState";
 import { useStartStore } from "@/store/start";
 import React, { useEffect } from "react";
@@ -10,16 +11,14 @@ const Timer = () => {
   const openModal = useModalStateStore((state) => state.openModal);
   const setStart = useStartStore((state) => state.setStart);
   const stop = useBGMStore((state) => state.stop);
+  const play = useEffectiveSoundStore((state) => state.play);
 
   const totalHeight = 360;
   const totalTime = 120;
 
   useEffect(() => {
     if (timeLeft === 0) {
-      const overSound = new Audio("/sounds/game-over.mp3");
-
-      overSound.currentTime = 0;
-      overSound.play();
+      play("gameover");
       openModal();
       setStart("pending");
       stop();
