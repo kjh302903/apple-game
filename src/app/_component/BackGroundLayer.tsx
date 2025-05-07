@@ -2,6 +2,7 @@ import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
 import React from "react";
 import { Layer, Rect } from "react-konva";
 import VolumeGauge from "./VolumeGauge";
+import EffectiveSound from "./EffectiveSound";
 
 interface Props {
   width: number;
@@ -26,6 +27,7 @@ const BackGroundLayer = ({ width, height }: Props) => {
         height={GAME_HEIGHT}
         fill="#fdf7b6"
       />
+      <EffectiveSound />
       <VolumeGauge />
     </Layer>
   );

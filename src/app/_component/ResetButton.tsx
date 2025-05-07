@@ -8,6 +8,7 @@ import { useTimeStore } from "@/store/time";
 import { useStartStore } from "@/store/start";
 import StrokeButton from "./common/StrokeButton";
 import { useBGMStore } from "@/store/bgm";
+import { useEffectiveSoundStore } from "@/store/effectiveSound";
 
 const ResetButton = () => {
   const color = "#f87f2e";
@@ -19,12 +20,10 @@ const ResetButton = () => {
   const setStart = useStartStore((state) => state.setStart);
 
   const reset = useBGMStore((state) => state.reset);
+  const playClick = useEffectiveSoundStore((state) => state.playClick);
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const clickSound = new Audio("/sounds/click.mp3");
-
-    clickSound.currentTime = 0;
-    clickSound.play();
+    playClick();
     resetCursor(e);
     resetScore();
     resetApples();

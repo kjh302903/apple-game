@@ -1,5 +1,6 @@
 import useCursorPointer from "@/hooks/useCursorPointer";
 import { useAppleStore } from "@/store/apple";
+import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useModalStateStore } from "@/store/modalState";
 import { useScoreStore } from "@/store/score";
 import { useStartStore } from "@/store/start";
@@ -13,12 +14,9 @@ const EndButton = () => {
   const resetScore = useScoreStore((state) => state.resetScore);
   const closeModal = useModalStateStore((state) => state.closeModal);
   const resetApples = useAppleStore((state) => state.resetApples);
-
+  const playClick = useEffectiveSoundStore((state) => state.playClick);
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const clickSound = new Audio("/sounds/click.mp3");
-
-    clickSound.currentTime = 0;
-    clickSound.play();
+    playClick();
     resetCursor(e);
     setStart("end");
     resetScore();
