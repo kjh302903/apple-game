@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useVolumeStore } from "./volume";
 
 export const useBGMStore = create<{
   audio: HTMLAudioElement | null;
@@ -13,7 +14,7 @@ export const useBGMStore = create<{
     if (!currentAudio) {
       const audio = new Audio("/sounds/game-bgm.mp3");
       audio.loop = true;
-      audio.volume = 0.3;
+      audio.volume = useVolumeStore.getState().volume;
       set({ audio: audio });
     }
   },
