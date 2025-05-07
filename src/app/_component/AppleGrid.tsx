@@ -10,6 +10,7 @@ import { isInside } from "@/utils/isInside";
 import { useScoreStore } from "@/store/score";
 import { APPLE_SIZE, useAppleStore } from "@/store/apple";
 import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
+import { useEffectiveSoundStore } from "@/store/effectiveSound";
 
 const DRAG_AREA = {
   x: BOARD_MARGIN,
@@ -28,6 +29,7 @@ const AppleGrid = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const addScore = useScoreStore((state) => state.addScore);
+  const playPop = useEffectiveSoundStore((state) => state.playPop);
 
   const [image] = useImage("/images/apple.png");
 
@@ -86,10 +88,7 @@ const AppleGrid = () => {
 
       if (total === 10) {
         // 합이 10이면 제거
-        const popSound = new Audio("/sounds/pop.mp3");
-
-        popSound.currentTime = 0;
-        popSound.play();
+        playPop();
         const selectedIdsToRemove = new Set(selected.map((a) => a.id));
         removeApplesById(selectedIdsToRemove);
         addScore(selected.length);
