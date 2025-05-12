@@ -11,6 +11,7 @@ import { useScoreStore } from "@/store/score";
 import { APPLE_SIZE, useAppleStore } from "@/store/apple";
 import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
+import { useScaleStore } from "@/store/scale";
 
 const DRAG_AREA = {
   x: BOARD_MARGIN,
@@ -30,11 +31,28 @@ const AppleGrid = () => {
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const addScore = useScoreStore((state) => state.addScore);
   const play = useEffectiveSoundStore((state) => state.play);
+  const scale = useScaleStore((state) => state.scale);
 
   const [image] = useImage("/images/apple.png");
 
-  const handleMouseDown = (e: KonvaEventObject<PointerEvent>) => {
+  const dragBox = useRef<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
+  const getScaledPointerPosition = (e: KonvaEventObject<PointerEvent>) => {
     const pos = e.target.getStage()?.getPointerPosition();
+    if (!pos) return null;
+    return {
+      x: pos.x / (scale * 0.9),
+      y: pos.y / (scale * 0.9),
+    };
+  };
+
+  const handleMouseDown = (e: KonvaEventObject<PointerEvent>) => {
+    const pos = getScaledPointerPosition(e);
     if (!pos) return;
 
     // 드래그 영역 안에서만 시작
@@ -59,7 +77,7 @@ const AppleGrid = () => {
   const handleMouseMove = (e: KonvaEventObject<PointerEvent>) => {
     if (!dragStart.current || !dragBoxRef.current) return;
 
-    const pos = e.target.getStage()?.getPointerPosition();
+    const pos = getScaledPointerPosition(e);
     if (!pos) return;
 
     const x = Math.min(pos.x, dragStart.current.x);
@@ -68,6 +86,8 @@ const AppleGrid = () => {
     const height = Math.abs(pos.y - dragStart.current.y);
 
     const box = { x, y, width, height };
+
+    dragBox.current = box; // 여기 저장!
     dragBoxRef.current.setAttrs(box);
 
     const selected = apples
@@ -78,12 +98,12 @@ const AppleGrid = () => {
 
   const handleMouseUp = () => {
     dragStart.current = null;
-    if (dragBoxRef.current) {
+    if (dragBoxRef.current && dragBox.current) {
       dragBoxRef.current.visible(false);
-      const box = dragBoxRef.current.getClientRect(); // 위치 + 크기 계산
       const selected = apples.filter((apple) =>
-        isInside(apple, box, APPLE_SIZE)
+        isInside(apple, dragBox.current!, APPLE_SIZE)
       );
+
       const total = selected.reduce((sum, apple) => sum + apple.value, 0);
 
       if (total === 10) {
@@ -95,6 +115,7 @@ const AppleGrid = () => {
       }
 
       setSelectedIds([]);
+      dragBox.current = null; // 초기화
     }
   };
 
