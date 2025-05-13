@@ -3,3 +3,9 @@ export const BOARD_HEIGHT = 485;
 export const BOARD_MARGIN = 40;
 export const GAME_WIDTH = 660;
 export const GAME_HEIGHT = 405;
+
+export const M_BOARD_WIDTH = 340;
+export const M_BOARD_HEIGHT = 600;
+export const M_BOARD_MARGIN = 30;
+export const M_GAME_WIDTH = 280;
+export const M_GAME_HEIGHT = 540;

@@ -9,6 +9,7 @@ import { useStartStore } from "@/store/start";
 import StrokeButton from "./common/StrokeButton";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
+import { useScaleStore } from "@/store/scale";
 
 const ResetButton = () => {
   const color = "#f87f2e";
@@ -22,11 +23,13 @@ const ResetButton = () => {
   const reset = useBGMStore((state) => state.reset);
   const play = useEffectiveSoundStore((state) => state.play);
 
+  const isMobile = useScaleStore((state) => state.isMobile);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     play("click");
     resetCursor(e);
     resetScore();
-    resetApples();
+    resetApples(isMobile);
     resetTime();
     setStart("start");
     closeModal();
@@ -36,10 +39,10 @@ const ResetButton = () => {
 
   return (
     <StrokeButton
-      x={45}
-      y={452.5}
-      width={60}
-      height={25}
+      x={isMobile ? 30 : 45}
+      y={isMobile ? 575 : 452.5}
+      width={isMobile ? 50 : 60}
+      height={isMobile ? 20 : 25}
       color={color} // 테두리 색 (더 연한 노랑)
       strokeWidth={2.5}
       offsetY={-1}

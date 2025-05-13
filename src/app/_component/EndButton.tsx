@@ -2,6 +2,7 @@ import useCursorPointer from "@/hooks/useCursorPointer";
 import { useAppleStore } from "@/store/apple";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useModalStateStore } from "@/store/modalState";
+import { useScaleStore } from "@/store/scale";
 import { useScoreStore } from "@/store/score";
 import { useStartStore } from "@/store/start";
 import Konva from "konva";
@@ -16,12 +17,14 @@ const EndButton = () => {
   const resetApples = useAppleStore((state) => state.resetApples);
   const play = useEffectiveSoundStore((state) => state.play);
 
+  const isMobile = useScaleStore((state) => state.isMobile);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     play("click");
     resetCursor(e);
     setStart("end");
     resetScore();
-    resetApples();
+    resetApples(isMobile);
     closeModal();
   };
   return (
@@ -31,7 +34,7 @@ const EndButton = () => {
       onClick={handleOnClick}
     >
       <Rect
-        x={220}
+        x={isMobile ? 30 : 220}
         y={310}
         width={220}
         height={50}
@@ -41,7 +44,7 @@ const EndButton = () => {
       <Text
         text={"게임 종료"}
         fontSize={24}
-        x={220}
+        x={isMobile ? 30 : 220}
         y={310}
         width={220}
         height={50}

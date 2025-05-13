@@ -1,3 +1,4 @@
+import { useScaleStore } from "@/store/scale";
 import React from "react";
 import { Group, Image, Text } from "react-konva";
 
@@ -13,6 +14,8 @@ interface Props {
 
 const Apple = React.memo(
   ({ x, y, size, value, version, image, selected }: Props) => {
+    const isMobile = useScaleStore((state) => state.isMobile);
+
     return image ? (
       <Group x={x} y={y}>
         <Image
@@ -27,7 +30,7 @@ const Apple = React.memo(
         />
         <Text
           text={value.toString()}
-          fontSize={16}
+          fontSize={isMobile ? 14 : 16}
           x={0}
           y={0}
           width={size}
@@ -35,7 +38,7 @@ const Apple = React.memo(
           align="center"
           verticalAlign="middle"
           offsetX={-0.5}
-          offsetY={-5}
+          offsetY={-3.5}
           fill="#fefefe"
         />
       </Group>

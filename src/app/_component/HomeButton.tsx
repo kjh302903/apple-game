@@ -8,6 +8,7 @@ import React from "react";
 import StrokeButton from "./common/StrokeButton";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
+import { useScaleStore } from "@/store/scale";
 
 const HomeButton = () => {
   const color = "#f87f2e";
@@ -19,22 +20,24 @@ const HomeButton = () => {
   const stop = useBGMStore((state) => state.stop);
   const play = useEffectiveSoundStore((state) => state.play);
 
+  const isMobile = useScaleStore((state) => state.isMobile);
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     play("click");
     resetCursor(e);
     setStart("end");
     resetScore();
-    resetApples();
+    resetApples(isMobile);
     closeModal();
 
     stop();
   };
   return (
     <StrokeButton
-      x={115}
-      y={452.5}
-      width={60}
-      height={25}
+      x={isMobile ? 90 : 115}
+      y={isMobile ? 575 : 452.5}
+      width={isMobile ? 50 : 60}
+      height={isMobile ? 20 : 25}
       color={color} // 테두리 색 (더 연한 노랑)
       strokeWidth={2.5}
       offsetY={-1}

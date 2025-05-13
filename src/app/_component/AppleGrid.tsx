@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Apple from "./Apple";
 import { Group, Rect } from "react-konva";
 import { Rect as KonvaRect } from "konva/lib/shapes/Rect";
@@ -8,8 +8,15 @@ import { KonvaEventObject } from "konva/lib/Node";
 import useImage from "use-image";
 import { isInside } from "@/utils/isInside";
 import { useScoreStore } from "@/store/score";
-import { APPLE_SIZE, useAppleStore } from "@/store/apple";
-import { BOARD_MARGIN, GAME_HEIGHT, GAME_WIDTH } from "@/constants/board";
+import { APPLE_SIZE, M_APPLE_SIZE, useAppleStore } from "@/store/apple";
+import {
+  BOARD_MARGIN,
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  M_BOARD_MARGIN,
+  M_GAME_HEIGHT,
+  M_GAME_WIDTH,
+} from "@/constants/board";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useScaleStore } from "@/store/scale";
 
@@ -19,9 +26,16 @@ const DRAG_AREA = {
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
 };
+const M_DRAG_AREA = {
+  x: M_BOARD_MARGIN,
+  y: M_BOARD_MARGIN,
+  width: M_GAME_WIDTH,
+  height: M_GAME_HEIGHT,
+};
 
 const AppleGrid = () => {
   const apples = useAppleStore((state) => state.apples);
+  const setApples = useAppleStore((state) => state.setApples);
   const version = useAppleStore((state) => state.version);
   const removeApplesById = useAppleStore((state) => state.removeApplesById);
 
@@ -32,6 +46,8 @@ const AppleGrid = () => {
   const addScore = useScoreStore((state) => state.addScore);
   const play = useEffectiveSoundStore((state) => state.play);
   const scale = useScaleStore((state) => state.scale);
+
+  const isMobile = useScaleStore((state) => state.isMobile);
 
   const [image] = useImage("/images/apple.png");
 
@@ -45,6 +61,12 @@ const AppleGrid = () => {
   const getScaledPointerPosition = (e: KonvaEventObject<PointerEvent>) => {
     const pos = e.target.getStage()?.getPointerPosition();
     if (!pos) return null;
+
+    if (isMobile)
+      return {
+        x: pos.x,
+        y: pos.y,
+      };
     return {
       x: pos.x / (scale * 0.9),
       y: pos.y / (scale * 0.9),
@@ -55,14 +77,24 @@ const AppleGrid = () => {
     const pos = getScaledPointerPosition(e);
     if (!pos) return;
 
-    // 드래그 영역 안에서만 시작
-    if (
-      pos.x < DRAG_AREA.x ||
-      pos.x > DRAG_AREA.x + DRAG_AREA.width ||
-      pos.y < DRAG_AREA.y ||
-      pos.y > DRAG_AREA.y + DRAG_AREA.height
-    )
-      return;
+    if (isMobile) {
+      if (
+        pos.x < M_DRAG_AREA.x ||
+        pos.x > M_DRAG_AREA.x + M_DRAG_AREA.width ||
+        pos.y < M_DRAG_AREA.y ||
+        pos.y > M_DRAG_AREA.y + M_DRAG_AREA.height
+      )
+        return;
+    } else {
+      // 드래그 영역 안에서만 시작
+      if (
+        pos.x < DRAG_AREA.x ||
+        pos.x > DRAG_AREA.x + DRAG_AREA.width ||
+        pos.y < DRAG_AREA.y ||
+        pos.y > DRAG_AREA.y + DRAG_AREA.height
+      )
+        return;
+    }
 
     dragStart.current = pos;
     if (dragBoxRef.current) {
@@ -119,6 +151,10 @@ const AppleGrid = () => {
     }
   };
 
+  useEffect(() => {
+    setApples(isMobile);
+  }, []);
+
   if (!image) return null;
 
   return (
@@ -129,7 +165,7 @@ const AppleGrid = () => {
           version={version}
           x={apple.x}
           y={apple.y}
-          size={APPLE_SIZE}
+          size={isMobile ? M_APPLE_SIZE : APPLE_SIZE}
           value={apple.value}
           image={image}
           selected={selectedIdSet.has(apple.id)}
@@ -144,10 +180,10 @@ const AppleGrid = () => {
         fill="rgba(0, 0, 255, 0.1)"
       />
       <Rect
-        x={DRAG_AREA.x}
-        y={DRAG_AREA.y}
-        width={DRAG_AREA.width}
-        height={DRAG_AREA.height}
+        x={isMobile ? M_DRAG_AREA.x : DRAG_AREA.x}
+        y={isMobile ? M_DRAG_AREA.y : DRAG_AREA.y}
+        width={isMobile ? M_DRAG_AREA.width : DRAG_AREA.width}
+        height={isMobile ? M_DRAG_AREA.height : DRAG_AREA.height}
         listening={true}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}

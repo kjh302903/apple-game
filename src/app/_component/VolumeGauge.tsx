@@ -1,6 +1,7 @@
 import useCursorPointer from "@/hooks/useCursorPointer";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
+import { useScaleStore } from "@/store/scale";
 import { useVolumeStore } from "@/store/volume";
 import Konva from "konva";
 import React, { useEffect, useRef } from "react";
@@ -20,6 +21,11 @@ const VolumeGauge = () => {
   const prevVolumeRef = useRef(1);
   const play = useEffectiveSoundStore((state) => state.play);
 
+  const scale = useScaleStore((state) => state.scale);
+  const isMobile = useScaleStore((state) => state.isMobile);
+  const M_gaugeX = 230;
+  const M_gaugeWidth = 80;
+
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     updateVolume(e);
   };
@@ -38,9 +44,14 @@ const VolumeGauge = () => {
   };
 
   const updateVolume = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const mouseX = e.evt.offsetX;
+    const mouseX = e.evt.offsetX / (scale * 0.9);
     const v = Math.min(1, Math.max(0, (mouseX - gaugeX) / gaugeWidth));
-    setVolume(v);
+    const M_v = Math.min(
+      1,
+      Math.max(0, (e.evt.offsetX - M_gaugeX) / M_gaugeWidth)
+    );
+    if (isMobile) setVolume(M_v);
+    else setVolume(v);
   };
 
   const handleIconClick = () => {
@@ -75,10 +86,10 @@ const VolumeGauge = () => {
     <Group>
       <Image
         image={volume ? onImage : offImage}
-        x={565}
-        y={450}
-        width={30}
-        height={30}
+        x={isMobile ? 205 : 565}
+        y={isMobile ? 575 : 450}
+        width={isMobile ? 20 : 30}
+        height={isMobile ? 20 : 30}
         alt="volume_icon"
         onClick={handleIconClick}
         onMouseOver={pointerCursor}
@@ -93,18 +104,18 @@ const VolumeGauge = () => {
         onMouseOut={resetCursor}
       >
         <Rect
-          x={gaugeX}
-          y={460}
-          width={gaugeWidth}
+          x={isMobile ? M_gaugeX : gaugeX}
+          y={isMobile ? 580 : 460}
+          width={isMobile ? M_gaugeWidth : gaugeWidth}
           height={10}
           stroke="#f87f2e"
           strokeWidth={2}
           cornerRadius={3}
         />
         <Rect
-          x={gaugeX}
-          y={460}
-          width={gaugeWidth * volume}
+          x={isMobile ? M_gaugeX : gaugeX}
+          y={isMobile ? 580 : 460}
+          width={isMobile ? M_gaugeWidth * volume : gaugeWidth * volume}
           height={10}
           fill="#f87f2e"
           cornerRadius={3}

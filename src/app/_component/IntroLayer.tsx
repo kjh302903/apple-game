@@ -1,22 +1,24 @@
 import React from "react";
 import { Layer, Text } from "react-konva";
 import StartButton from "./StartButton";
+import { useScaleStore } from "@/store/scale";
 
 const IntroLayer = () => {
+  const isMobile = useScaleStore((state) => state.isMobile);
   return (
     <Layer>
       <Text
         text="Apple Game"
         align="center"
         verticalAlign="middle"
-        x={240}
-        y={30}
-        width={260}
-        height={160}
-        fontSize={46}
+        x={isMobile ? 80 : 240}
+        y={isMobile ? 80 : 30}
+        width={isMobile ? 180 : 260}
+        height={isMobile ? 40 : 160}
+        fontSize={isMobile ? 32 : 46}
         fill="#f87f2e"
       />
-      <StartButton x={290} y={210} />
+      <StartButton x={isMobile ? 90 : 290} y={isMobile ? 230 : 210} />
     </Layer>
   );
 };
