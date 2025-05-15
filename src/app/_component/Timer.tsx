@@ -1,3 +1,4 @@
+import { ORANGE_COLOR } from "@/constants/board";
 import useGameTimer from "@/hooks/useGameTimer";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
@@ -39,7 +40,7 @@ const Timer = () => {
         y={baseY}
         width={10}
         height={totalHeight}
-        stroke="#f87f2e"
+        stroke={ORANGE_COLOR}
         strokeWidth={2}
         cornerRadius={3}
       />
@@ -48,7 +49,7 @@ const Timer = () => {
         y={adjustedY}
         width={10}
         height={gaugeHeight}
-        fill="#f87f2e"
+        fill={ORANGE_COLOR}
         cornerRadius={3}
       />
     </Group>

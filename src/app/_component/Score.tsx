@@ -1,3 +1,4 @@
+import { ORANGE_COLOR } from "@/constants/board";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useModalStateStore } from "@/store/modalState";
@@ -35,7 +36,7 @@ const Score = () => {
         y={isMobile ? 5 : 10}
         offsetY={-1}
         fontSize={24}
-        fill="#f87f2e"
+        fill={ORANGE_COLOR}
       />
       <Text
         text={score.toString()}
@@ -45,7 +46,7 @@ const Score = () => {
         y={isMobile ? 5 : 10}
         offsetY={-2}
         fontSize={24}
-        fill="#f87f2e"
+        fill={ORANGE_COLOR}
         width={55}
       />
     </Group>

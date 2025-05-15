@@ -2,6 +2,7 @@ import React from "react";
 import { Layer, Text } from "react-konva";
 import StartButton from "./StartButton";
 import { useScaleStore } from "@/store/scale";
+import { ORANGE_COLOR } from "@/constants/board";
 
 const IntroLayer = () => {
   const isMobile = useScaleStore((state) => state.isMobile);
@@ -16,7 +17,7 @@ const IntroLayer = () => {
         width={isMobile ? 180 : 260}
         height={isMobile ? 40 : 160}
         fontSize={isMobile ? 32 : 46}
-        fill="#f87f2e"
+        fill={ORANGE_COLOR}
       />
       <StartButton x={isMobile ? 90 : 290} y={isMobile ? 230 : 210} />
     </Layer>

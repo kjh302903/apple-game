@@ -9,9 +9,9 @@ import StrokeButton from "./common/StrokeButton";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useScaleStore } from "@/store/scale";
+import { ORANGE_COLOR } from "@/constants/board";
 
 const HomeButton = () => {
-  const color = "#f87f2e";
   const { resetCursor } = useCursorPointer();
   const setStart = useStartStore((state) => state.setStart);
   const resetScore = useScoreStore((state) => state.resetScore);
@@ -38,7 +38,7 @@ const HomeButton = () => {
       y={isMobile ? 575 : 452.5}
       width={isMobile ? 50 : 60}
       height={isMobile ? 20 : 25}
-      color={color} // 테두리 색 (더 연한 노랑)
+      color={ORANGE_COLOR} // 테두리 색 (더 연한 노랑)
       strokeWidth={2.5}
       offsetY={-1}
       text={"HOME"}

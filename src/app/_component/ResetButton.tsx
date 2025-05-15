@@ -10,9 +10,9 @@ import StrokeButton from "./common/StrokeButton";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
 import { useScaleStore } from "@/store/scale";
+import { ORANGE_COLOR } from "@/constants/board";
 
 const ResetButton = () => {
-  const color = "#f87f2e";
   const resetScore = useScoreStore((state) => state.resetScore);
   const { resetCursor } = useCursorPointer();
   const closeModal = useModalStateStore((state) => state.closeModal);
@@ -43,7 +43,7 @@ const ResetButton = () => {
       y={isMobile ? 575 : 452.5}
       width={isMobile ? 50 : 60}
       height={isMobile ? 20 : 25}
-      color={color} // 테두리 색 (더 연한 노랑)
+      color={ORANGE_COLOR} // 테두리 색 (더 연한 노랑)
       strokeWidth={2.5}
       offsetY={-1}
       text={"RESET"}

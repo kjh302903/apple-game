@@ -1,3 +1,4 @@
+import { ORANGE_COLOR } from "@/constants/board";
 import useCursorPointer from "@/hooks/useCursorPointer";
 import { useBGMStore } from "@/store/bgm";
 import { useEffectiveSoundStore } from "@/store/effectiveSound";
@@ -108,7 +109,7 @@ const VolumeGauge = () => {
           y={isMobile ? 580 : 460}
           width={isMobile ? M_gaugeWidth : gaugeWidth}
           height={10}
-          stroke="#f87f2e"
+          stroke={ORANGE_COLOR}
           strokeWidth={2}
           cornerRadius={3}
         />
@@ -117,7 +118,7 @@ const VolumeGauge = () => {
           y={isMobile ? 580 : 460}
           width={isMobile ? M_gaugeWidth * volume : gaugeWidth * volume}
           height={10}
-          fill="#f87f2e"
+          fill={ORANGE_COLOR}
           cornerRadius={3}
         />
       </Group>

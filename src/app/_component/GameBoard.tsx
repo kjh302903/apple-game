@@ -11,6 +11,7 @@ import {
   BOARD_WIDTH,
   M_BOARD_HEIGHT,
   M_BOARD_WIDTH,
+  MARGIN_RATIO,
 } from "@/constants/board";
 import { useScaleStore } from "@/store/scale";
 
@@ -20,8 +21,6 @@ const GameBoard = () => {
   const setScale = useScaleStore((state) => state.setScale);
   const isMobile = useScaleStore((state) => state.isMobile);
   const setMobile = useScaleStore((state) => state.setMobile);
-
-  const MARGIN_RATIO = 0.9;
 
   useEffect(() => {
     const handleResize = () => {

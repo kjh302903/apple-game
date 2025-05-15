@@ -9,3 +9,7 @@ export const M_BOARD_HEIGHT = 600;
 export const M_BOARD_MARGIN = 30;
 export const M_GAME_WIDTH = 280;
 export const M_GAME_HEIGHT = 540;
+
+export const MARGIN_RATIO = 0.9;
+
+export const ORANGE_COLOR = "#f87f2e";
