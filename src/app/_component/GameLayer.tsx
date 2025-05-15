@@ -7,9 +7,12 @@ import Score from "./Score";
 import ResultModal from "./ResultModal";
 import { useModalStateStore } from "@/store/modalState";
 import HomeButton from "./HomeButton";
+import ResizeWarningModal from "./ResizeWarningModal";
+import { useResizeModalStateStore } from "@/store/resizeModalState";
 
 const GameLayer = () => {
   const isOpen = useModalStateStore((state) => state.isOpen);
+  const ResizeModalIsOpen = useResizeModalStateStore((state) => state.isOpen);
   return (
     <Layer>
       <AppleGrid />
@@ -18,6 +21,7 @@ const GameLayer = () => {
       <HomeButton />
       <Timer />
       {isOpen && <ResultModal />}
+      {ResizeModalIsOpen && <ResizeWarningModal />}
     </Layer>
   );
 };
