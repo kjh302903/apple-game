@@ -16,6 +16,8 @@ const Apple = React.memo(
   ({ x, y, size, value, version, image, selected }: Props) => {
     const isMobile = useScaleStore((state) => state.isMobile);
 
+    void version;
+
     return image ? (
       <Group x={x} y={y}>
         <Image
