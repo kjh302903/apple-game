@@ -33,6 +33,7 @@ const StartButton = ({ x, y }: Props) => {
       onClick={handleOnClick}
       onMouseOver={pointerCursor}
       onMouseOut={resetCursor}
+      onTap={handleOnClick}
     >
       <Image image={image} width={160} height={160} alt="시작 버튼" />
       <Text

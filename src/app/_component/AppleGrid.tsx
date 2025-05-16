@@ -58,7 +58,9 @@ const AppleGrid = () => {
     height: number;
   } | null>(null);
 
-  const getScaledPointerPosition = (e: KonvaEventObject<PointerEvent>) => {
+  const getScaledPointerPosition = (
+    e: KonvaEventObject<MouseEvent | TouchEvent>
+  ) => {
     const pos = e.target.getStage()?.getPointerPosition();
     if (!pos) return null;
 
@@ -73,7 +75,7 @@ const AppleGrid = () => {
     };
   };
 
-  const handleMouseDown = (e: KonvaEventObject<PointerEvent>) => {
+  const handleMouseDown = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
     const pos = getScaledPointerPosition(e);
     if (!pos) return;
 
@@ -106,7 +108,7 @@ const AppleGrid = () => {
     }
   };
 
-  const handleMouseMove = (e: KonvaEventObject<PointerEvent>) => {
+  const handleMouseMove = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
     if (!dragStart.current || !dragBoxRef.current) return;
 
     const pos = getScaledPointerPosition(e);
@@ -188,6 +190,9 @@ const AppleGrid = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onTouchStart={handleMouseDown}
+        onTouchMove={handleMouseMove}
+        onTouchEnd={handleMouseUp}
       />
     </Group>
   );

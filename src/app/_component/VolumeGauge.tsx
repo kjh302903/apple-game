@@ -16,16 +16,28 @@ const VolumeGauge = () => {
   const { pointerCursor, resetCursor } = useCursorPointer();
   const volume = useVolumeStore((state) => state.volume);
   const setVolume = useVolumeStore((state) => state.setVolume);
-  const gaugeX = 600;
-  const gaugeWidth = 100;
   const isDragging = useRef(false);
   const prevVolumeRef = useRef(1);
   const play = useEffectiveSoundStore((state) => state.play);
 
   const scale = useScaleStore((state) => state.scale);
   const isMobile = useScaleStore((state) => state.isMobile);
+
+  const gaugeX = 600;
+  const gaugeWidth = 100;
   const M_gaugeX = 230;
   const M_gaugeWidth = 80;
+
+  const updateVolume = (e: Konva.KonvaEventObject<MouseEvent | TouchEvent>) => {
+    const pos = e.target.getStage()?.getPointerPosition();
+    if (!pos) return null;
+    const mouseX = isMobile ? pos.x : pos.x / (scale * 0.9);
+
+    const v = Math.min(1, Math.max(0, (mouseX - gaugeX) / gaugeWidth));
+    const M_v = Math.min(1, Math.max(0, (mouseX - M_gaugeX) / M_gaugeWidth));
+
+    setVolume(isMobile ? M_v : v);
+  };
 
   const handleOnClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     updateVolume(e);
@@ -39,20 +51,11 @@ const VolumeGauge = () => {
     isDragging.current = false;
   };
 
-  const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleMouseMove = (
+    e: Konva.KonvaEventObject<MouseEvent | TouchEvent>
+  ) => {
     if (!isDragging.current) return;
     updateVolume(e);
-  };
-
-  const updateVolume = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    const mouseX = e.evt.offsetX / (scale * 0.9);
-    const v = Math.min(1, Math.max(0, (mouseX - gaugeX) / gaugeWidth));
-    const M_v = Math.min(
-      1,
-      Math.max(0, (e.evt.offsetX - M_gaugeX) / M_gaugeWidth)
-    );
-    if (isMobile) setVolume(M_v);
-    else setVolume(v);
   };
 
   const handleIconClick = () => {
@@ -95,6 +98,7 @@ const VolumeGauge = () => {
         onClick={handleIconClick}
         onMouseOver={pointerCursor}
         onMouseOut={resetCursor}
+        onTap={handleIconClick}
       />
       <Group
         onClick={handleOnClick}
@@ -103,6 +107,10 @@ const VolumeGauge = () => {
         onMouseMove={handleMouseMove}
         onMouseOver={pointerCursor}
         onMouseOut={resetCursor}
+        onTap={handleOnClick}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={handleMouseMove}
       >
         <Rect
           x={isMobile ? M_gaugeX : gaugeX}

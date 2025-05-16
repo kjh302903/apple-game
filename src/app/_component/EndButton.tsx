@@ -32,6 +32,7 @@ const EndButton = () => {
       onMouseOver={pointerCursor}
       onMouseOut={resetCursor}
       onClick={handleOnClick}
+      onTap={handleOnClick}
     >
       <Rect
         x={isMobile ? 30 : 220}

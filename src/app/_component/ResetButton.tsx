@@ -29,6 +29,7 @@ const ResetButton = () => {
       offsetY={-1}
       text={"RESET"}
       onClick={handleOnClick}
+      onTap={handleOnClick}
     />
   );
 };

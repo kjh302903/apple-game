@@ -14,6 +14,7 @@ interface Props {
   color: string;
   strokeWidth: number;
   onClick: (e: Konva.KonvaEventObject<MouseEvent>) => void;
+  onTap: (e: Konva.KonvaEventObject<MouseEvent>) => void;
 }
 
 const StrokeButton = ({
@@ -27,6 +28,7 @@ const StrokeButton = ({
   color,
   strokeWidth,
   onClick,
+  onTap,
 }: Props) => {
   const { pointerCursor, resetCursor } = useCursorPointer();
   return (
@@ -36,6 +38,7 @@ const StrokeButton = ({
       onClick={onClick}
       onMouseOver={pointerCursor}
       onMouseOut={resetCursor}
+      onTap={onTap}
     >
       <Rect
         width={width}

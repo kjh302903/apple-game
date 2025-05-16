@@ -31,6 +31,7 @@ const EffectiveSound = () => {
       onClick={handleOnClick}
       onMouseOver={pointerCursor}
       onMouseOut={resetCursor}
+      onTap={handleOnClick}
     />
   );
 };

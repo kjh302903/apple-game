@@ -43,6 +43,7 @@ const HomeButton = () => {
       offsetY={-1}
       text={"HOME"}
       onClick={handleOnClick}
+      onTap={handleOnClick}
     />
   );
 };

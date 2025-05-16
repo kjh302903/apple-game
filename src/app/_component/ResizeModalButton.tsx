@@ -25,6 +25,7 @@ const ResizeModalButton = ({ x, y }: Props) => {
       onClick={handleOnClick}
       onMouseOver={pointerCursor}
       onMouseOut={resetCursor}
+      onTap={handleOnClick}
     >
       <Rect
         x={x}
