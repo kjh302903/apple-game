@@ -15,6 +15,7 @@ import {
 } from "@/constants/board";
 import { useScaleStore } from "@/store/scale";
 import { useResizeModalStateStore } from "@/store/resizeModalState";
+import { useBGMStore } from "@/store/bgm";
 
 const GameBoard = () => {
   const startState = useStartStore((state) => state.startState);
@@ -23,6 +24,8 @@ const GameBoard = () => {
   const isMobile = useScaleStore((state) => state.isMobile);
   const setMobile = useScaleStore((state) => state.setMobile);
   const openResizeModal = useResizeModalStateStore((state) => state.openModal);
+  const setStart = useStartStore((state) => state.setStart);
+  const stop = useBGMStore((state) => state.stop);
 
   const startRef = useRef(startState);
 
@@ -43,6 +46,8 @@ const GameBoard = () => {
       // 실제 resize 시점의 상태 확인
       if (startRef.current === "start") {
         openResizeModal();
+        setStart("pending");
+        stop();
       }
     };
 
